@@ -1,32 +1,43 @@
 // Import necessary modules from React library
 import React from 'react';
 
-// Import components for routing from react-router-dom library
+// Import routing components
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// Import custom Navbar component
+// Import components
 import Navbar from './Components/Navbar/Navbar';
 import Landing_Page from "./Components/Landing_Page/Landing_Page";
+import Sign_up from "./Components/Sign_Up/Sign_up";
+import Login from "./Components/Login/Login";
 
-// Function component for the main App
+// Main App component
 function App() {
 
-  // Render the main App component
   return (
     <div className="App">
-        {/* Set up BrowserRouter for routing */}
-        <BrowserRouter>
-          {/* Display the Navbar component */}
-          <Navbar/>
 
-          {/* Set up the Routes for different pages */}
-          <Routes>
-            <Route path="/" element={<Landing_Page />} />
-          </Routes>
-        </BrowserRouter>
+      <BrowserRouter>
+
+        {/* Navbar will appear on all pages */}
+        <Navbar/>
+
+        <Routes>
+
+          {/* Landing page */}
+          <Route path="/" element={<Landing_Page />} />
+
+          {/* Signup page */}
+          <Route path="/signup" element={<Sign_up />} />
+
+          {/* Login page */}
+          <Route path="/login" element={<Login />} />
+
+        </Routes>
+
+      </BrowserRouter>
+
     </div>
   );
 }
 
-// Export the App component as the default export
 export default App;
