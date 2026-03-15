@@ -4,6 +4,14 @@ import "./Navbar.css";
 
 function Navbar() {
 
+  const email = sessionStorage.getItem("email");
+  const username = email ? email.split("@")[0] : "";
+
+  const logout = () => {
+    sessionStorage.clear();
+    window.location.href = "/";
+  };
+
   const handleClick = () => {
     const navLinks = document.querySelector(".nav__links");
     const navIcon = document.querySelector(".nav__icon i");
@@ -23,13 +31,8 @@ function Navbar() {
     <nav>
 
       <div className="nav__logo">
-
-        <Link to="/">
-          StayHealthy
-        </Link>
-
+        <Link to="/">StayHealthy</Link>
         <span>.</span>
-
       </div>
 
       <div className="nav__icon" onClick={handleClick}>
@@ -46,17 +49,37 @@ function Navbar() {
           <a href="#">Appointments</a>
         </li>
 
-        <li className="link">
-          <Link to="/signup">
-            <button className="btn1">Sign Up</button>
-          </Link>
-        </li>
+        {!email && (
+          <>
+            <li className="link">
+              <Link to="/signup">
+                <button className="btn1">Sign Up</button>
+              </Link>
+            </li>
 
-        <li className="link">
-          <Link to="/login">
-            <button className="btn1">Login</button>
-          </Link>
-        </li>
+            <li className="link">
+              <Link to="/login">
+                <button className="btn1">Login</button>
+              </Link>
+            </li>
+          </>
+        )}
+
+        {email && (
+          <>
+            <li className="link">
+              <span className="username">
+                Welcome,{username}
+              </span>
+            </li>
+
+            <li className="link">
+              <button className="btn1" onClick={logout}>
+                Logout
+              </button>
+            </li>
+          </>
+        )}
 
       </ul>
 
