@@ -49,6 +49,12 @@ function Navbar() {
           <a href="#">Appointments</a>
         </li>
 
+        <li className="link">
+            <Link to="/instant-consultation">
+                <button className="instant-btn">Instant Consultation</button>
+            </Link>
+        </li>
+
         {!email && (
           <>
             <li className="link">
