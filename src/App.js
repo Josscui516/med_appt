@@ -10,6 +10,10 @@ import Landing_Page from "./Components/Landing_Page/Landing_Page";
 import Sign_Up from "./Components/Sign_Up/Sign_Up";
 import Login from "./Components/Login/Login";
 import InstantConsultation from './Components/Instant_Consultation/InstantConsultation';
+import Notification from './Components/Notification/Notification';
+import ReviewForm from './Components/ReviewForm/ReviewForm';
+import ProfileForm from './Components/ProfileForm/ProfileForm'
+import ReportsLayout from './Components/ReportsLayout/ReportsLayout';
 
 // Main App component
 function App() {
@@ -22,20 +26,32 @@ function App() {
         {/* Navbar will appear on all pages */}
         <Navbar/>
 
-        <Routes>
+        {/* Notification wrapper */}
+        <Notification>
 
-          {/* Landing page */}
-          <Route path="/" element={<Landing_Page />} />
+          <Routes>
 
-          {/* Signup page */}
-          <Route path="/signup" element={<Sign_Up />} />
+            {/* Landing page */}
+            <Route path="/" element={<Landing_Page />} />
 
-          {/* Login page */}
-          <Route path="/login" element={<Login />} />
+            {/* Signup page */}
+            <Route path="/signup" element={<Sign_Up />} />
 
-          <Route path="/instant-consultation" element={<InstantConsultation />} />
+            {/* Login page */}
+            <Route path="/login" element={<Login />} />
 
-        </Routes>
+            {/* Instant consultation */}
+            <Route path="/instant-consultation" element={<InstantConsultation />} />
+
+            <Route path="/reviews" element={<ReviewForm />} />
+
+            <Route path="/profile" element={<ProfileForm />} />
+
+            <Route path="/reports" element={<ReportsLayout />} />
+
+          </Routes>
+
+        </Notification>
 
       </BrowserRouter>
 

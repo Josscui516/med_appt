@@ -1,96 +1,124 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import ProfileCard from "../ProfileCard/ProfileCard";
 
 function Navbar() {
 
-  const email = sessionStorage.getItem("email");
-  const username = email ? email.split("@")[0] : "";
+    const [showProfile, setShowProfile] = useState(false);
 
-  const logout = () => {
-    sessionStorage.clear();
-    window.location.href = "/";
-  };
+    const email = sessionStorage.getItem("email");
+    const username = email ? email.split("@")[0] : "";
 
-  const handleClick = () => {
-    const navLinks = document.querySelector(".nav__links");
-    const navIcon = document.querySelector(".nav__icon i");
+    const logout = () => {
+        sessionStorage.clear();
+        window.location.href = "/";
+    };
 
-    navLinks.classList.toggle("active");
+    const handleClick = () => {
+        const navLinks = document.querySelector(".nav__links");
+        const navIcon = document.querySelector(".nav__icon i");
 
-    if (navLinks.classList.contains("active")) {
-      navIcon.classList.remove("fa-bars");
-      navIcon.classList.add("fa-times");
-    } else {
-      navIcon.classList.remove("fa-times");
-      navIcon.classList.add("fa-bars");
-    }
-  };
+        navLinks.classList.toggle("active");
 
-  return (
-    <nav>
+        if (navLinks.classList.contains("active")) {
+            navIcon.classList.remove("fa-bars");
+            navIcon.classList.add("fa-times");
+        } else {
+            navIcon.classList.remove("fa-times");
+            navIcon.classList.add("fa-bars");
+        }
+    };
 
-      <div className="nav__logo">
-        <Link to="/">StayHealthy</Link>
-        <span>.</span>
-      </div>
+    return (
+        <nav>
 
-      <div className="nav__icon" onClick={handleClick}>
-        <i className="fa fa-bars"></i>
-      </div>
+            <div className="nav__logo">
+                <Link to="/">StayHealthy</Link>
+                <span>.</span>
+            </div>
 
-      <ul className="nav__links active">
+            <div className="nav__icon" onClick={handleClick}>
+                <i className="fa fa-bars"></i>
+            </div>
 
-        <li className="link">
-          <Link to="/">Home</Link>
-        </li>
+            <ul className="nav__links active">
 
-        <li className="link">
-          <a href="#">Appointments</a>
-        </li>
+                <li className="link">
+                    <Link to="/">Home</Link>
+                </li>
 
-        <li className="link">
-            <Link to="/instant-consultation">
-                <button className="instant-btn">Instant Consultation</button>
-            </Link>
-        </li>
+                <li className="link">
+                    <a href="#">Appointments</a>
+                </li>
 
-        {!email && (
-          <>
-            <li className="link">
-              <Link to="/signup">
-                <button className="btn1">Sign Up</button>
-              </Link>
-            </li>
+                <li className="link">
+                    <Link to="/instant-consultation">
+                        <button className="instant-btn">Instant Consultation</button>
+                    </Link>
+                </li>
 
-            <li className="link">
-              <Link to="/login">
-                <button className="btn1">Login</button>
-              </Link>
-            </li>
-          </>
-        )}
+                <li>
+                    <Link to="/reviews">Reviews</Link>
+                </li>
 
-        {email && (
-          <>
-            <li className="link">
-              <span className="username">
-                Welcome,{username}
-              </span>
-            </li>
+                {!email && (
+                    <>
+                        <li className="link">
+                            <Link to="/signup">
+                                <button className="btn1">Sign Up</button>
+                            </Link>
+                        </li>
 
-            <li className="link">
-              <button className="btn1" onClick={logout}>
-                Logout
-              </button>
-            </li>
-          </>
-        )}
+                        <li className="link">
+                            <Link to="/login">
+                                <button className="btn1">Login</button>
+                            </Link>
+                        </li>
+                    </>
+                )}
 
-      </ul>
+                {email && (
+                    <>
+                        <li className="link profile-menu">
 
-    </nav>
-  );
+                            <span
+                                className="username"
+                                onClick={() => setShowProfile(!showProfile)}
+                            >
+                                Welcome, {username}
+                            </span>
+
+                            {showProfile && (
+                                <div className="profile-dropdown">
+
+                                    <ProfileCard />
+
+                                    <Link to="/profile" className="dropdown-item">
+                                        Your Profile
+                                    </Link>
+
+                                    <Link to="/reports" className="dropdown-item">
+                                        Your Reports
+                                    </Link>
+
+                                </div>
+                            )}
+
+                        </li>
+
+                        <li className="link">
+                            <button className="btn1" onClick={logout}>
+                                Logout
+                            </button>
+                        </li>
+                    </>
+                )}
+
+            </ul>
+
+        </nav>
+    );
 }
 
 export default Navbar;
